@@ -1,3 +1,5 @@
+#ifndef TEXT_EDITORR_H
+#define TEXT_EDITORR_H
 #include "text_editor.h"
 
 editfun::editfun() : type_(Type::INSERT), text_(""), position_(0) {}
@@ -55,9 +57,10 @@ void textedit::deleteText(size_t start, size_t end) {
 void textedit::replaceText(size_t start, size_t end, const std::string& newText) {
   std::string oldText = text_.substr(start, end - start);
   text_.replace(start, end - start, newText);
-  undoStack_.push_back(editfun(editfun::REPLACE, oldText, start));
+  undoStack_.push_back(editfun(editfun::REPLACE, oldText, start)); 
   redoStack_.push_back(editfun(editfun::REPLACE, newText, start));
 }
+
 
 void textedit::undo() {
   if (!undoStack_.empty()) {
@@ -98,3 +101,4 @@ void textedit::redo() {
 const std::string& textedit::getText() const {
   return text_;
 }
+#endif
