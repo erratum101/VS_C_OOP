@@ -55,9 +55,10 @@ void textedit::deleteText(size_t start, size_t end) {
 }
 
 void textedit::replaceText(size_t start, size_t end, const std::string& newText) {
-  std::string oldText = text_.substr(start, end - start);
-  text_.replace(start, end - start, newText);
-  undoStack_.push_back(editfun(editfun::REPLACE, oldText, start)); 
+  size_t length = end - start;
+  std::string oldText = text_.substr(start, length);
+  text_.replace(start, length, newText);
+  undoStack_.push_back(editfun(editfun::REPLACE, oldText, start));
   redoStack_.push_back(editfun(editfun::REPLACE, newText, start));
 }
 
